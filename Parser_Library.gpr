@@ -1,0 +1,40 @@
+
+
+project Parser_Library is
+
+  for Source_Dirs use (".");
+  for Object_Dir use ".obj";
+  for Exec_Dir use ".obj";
+  for Languages use ("Ada");
+
+  for Main use ("Parser_Library");
+
+  package Naming is
+     for Casing use "mixedcase";
+     for Dot_Replacement use ".";
+     for Spec_Suffix ("Ada") use ".ads";
+     for Body_Suffix ("Ada") use ".adb";
+     for Separate_Suffix use ".ada";
+  end Naming;
+
+  package Builder is
+     for Default_Switches ("Ada") use ("-s");
+     for Executable ("Parser_Library") use "Parser_Library";
+  end Builder;
+
+  package Compiler is
+     for Default_Switches ("Ada") use
+       ("-fstack-check", -- stack checking
+        "-gnata",   -- enable assertions
+        "-gnat12",  -- Ada 2012
+        "-gnatA",   -- avoid processing `gnat.adc'
+        "-gnatn",   -- backend inlining
+        "-gnato",   -- overflow checking
+        "-gnatVa",  -- validity checks
+
+        "-gnatL",   -- print expanded source
+        "-gnatD"    -- save expanded source
+        );
+  end Compiler;
+
+end Parser_Library;
